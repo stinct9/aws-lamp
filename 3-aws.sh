@@ -7,22 +7,21 @@
 #sudo ./SCRIPTNAME.sh
 
 echo "###################################################################################"
-echo "Please be Patient: Installation will start now.......and it will take some time :)"
+echo "Step 3 Installation will start now......."
 echo "###################################################################################"
 
-sudo yum update -y
+groups
 
-sudo yum install -y httpd24 php56 mysql55-server php56-mysqlnd
+sudo chown -R root:www /var/www
 
-sudo service httpd start
+sudo chmod 2775 /var/www
 
-sudo chkconfig httpd on
+find /var/www -type d -exec sudo chmod 2775 {} \;
 
-chkconfig --list httpd
+find /var/www -type f -exec sudo chmod 0664 {} \;
 
-sudo groupadd www
+echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
 
-sudo usermod -a -G www ec2-user
 
 echo "###################################################################################"
 echo "Exiting, please login again"
