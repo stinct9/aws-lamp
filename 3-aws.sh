@@ -23,8 +23,7 @@ sudo yum-config-manager --enable epel
 
 sudo yum install -y phpMyAdmin
 
-sudo sed -i -e 's/127.0.0.1/2405:204:2001:f547:695b:1c32:d848:2b69/g' /etc/httpd/conf.d/phpMyAdmin.conf
-Restart the Apache web server
+sudo sed -i -e 's/127.0.0.1/49.33.67.39/g' /etc/httpd/conf.d/phpMyAdmin.conf
 
 sudo service httpd restart
 
