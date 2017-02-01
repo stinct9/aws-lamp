@@ -7,12 +7,20 @@
 #sudo ./SCRIPTNAME.sh
 
 echo "###################################################################################"
-echo "Step 2 Installation will start now......."
+echo "Step 3 Installation will start now......."
 echo "###################################################################################"
 
-sudo groupadd www
+groups
 
-sudo usermod -a -G www ec2-user
+sudo chown -R root:www /var/www
+
+sudo chmod 2775 /var/www
+
+find /var/www -type d -exec sudo chmod 2775 {} \;
+
+find /var/www -type f -exec sudo chmod 0664 {} \;
+
+echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
 
 
 echo "###################################################################################"

@@ -7,20 +7,30 @@
 #sudo ./SCRIPTNAME.sh
 
 echo "###################################################################################"
-echo "Step 3 Installation will start now......."
+echo "Step 4 Installation will start now......."
 echo "###################################################################################"
 
-groups
+rm /var/www/html/phpinfo.php
 
-sudo chown -R root:www /var/www
+sudo service mysqld start
 
-sudo chmod 2775 /var/www
+sudo mysql_secure_installation
 
-find /var/www -type d -exec sudo chmod 2775 {} \;
+sudo chkconfig mysqld on
 
-find /var/www -type f -exec sudo chmod 0664 {} \;
 
-echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+sudo yum-config-manager --enable epel
+
+sudo yum install -y phpMyAdmin
+
+sudo sed -i -e 's/127.0.0.1/2405:204:2001:f547:695b:1c32:d848:2b69/g' /etc/httpd/conf.d/phpMyAdmin.conf
+Restart the Apache web server
+
+sudo service httpd restart
+
+sudo service mysqld restart
+
+
 
 
 echo "###################################################################################"
