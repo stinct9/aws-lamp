@@ -1,37 +1,56 @@
-## Welcome to GitHub Pages
+I'm hoping there would be more people like me who set up LAMP server on AWS Linux EC2 Instance.
+I've done it multiple times and realized that it's time to write a script to automate the setup.
 
-You can use the [editor on GitHub](https://github.com/stinct9/aws-lamp/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+I've shared the script on [GitHub](https://github.com/stinct9/aws-lamp). Detailed below are the steps to be followed.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+#Step 0: Clone the repository
+Use git clone to clone the repository and set necessary permissions
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+git clone https://github.com/stinct9/aws-lamp.git>
+```
+```
+cd aws-lamp</code>
+```
+```
+chmod +x 1-aws.sh 2-aws.sh 3-aws.sh
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+#Step 1: Install php & MySQL
+Next installs php, Mysql and other dependencies.
 
-### Jekyll Themes
+```
+sudo ./1-aws.sh
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/stinct9/aws-lamp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Once the script has completed running, please <code>exit</code> and login to the server again.
 
-### Support or Contact
+#Step 2: Setting Permissions
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Next run 
+```
+sudo ./2-aws.sh
+```
+
+#Step 3: Installing phpMyAdmin
+
+Next install phpMyAdmin with the step 3 script. Here first it is very important to change the IP address field in the script 
+
+```
+sudo nano 3-aws.sh
+```
+
+and modify the below line with your IP address. Replace `your-ipaddress` with your actual IP address. It would be something like `49.12.23.192`. You can check your real ip address from [whatismyip.com](https://www.whatismyip.com/)
+
+```
+sudo sed -i -e 's/127.0.0.1/your-ipaddress/g' /etc/httpd/conf.d/phpMyAdmin.conf
+```
+
+Next run the script
+```
+sudo ./3-aws.sh
+```
+This will install phpmyadmin
+
+#Conclusion
+The above will setup a bare LAMP server on AWS EC2.
